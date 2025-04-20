@@ -81,7 +81,7 @@ class NativeProtectionTransformer extends BaseTransformer {
       /* name (default import) */ undefined,
       ts.factory.createNamedImports(imports.map(name => ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(name))))
     );
-    const moduleSpecifier = ts.factory.createStringLiteral(join(__dirname, './nativeFunctions'));
+    const moduleSpecifier = ts.factory.createStringLiteral(require.resolve("@contentsquare/runtime-protection"));
     return ts.factory.createImportDeclaration(
       undefined,
       importClause,
@@ -114,14 +114,13 @@ class NativeProtectionTransformer extends BaseTransformer {
 
   protected transformNode(node: ts.Node): ts.Node | undefined {
     if (ts.isIdentifier(node) && GLOBALS.includes(node.text)) {
-      this.importsToAdd.add(node.getText());
+      this.importsToAdd.add(node.text);
       return node;
     }
 
     if (ts.isPropertyAccessExpression(node)) {
-      const propertyText = node.name.getText();
+      const propertyText = node.name.text;
       const leftTypeName = this.getTypeNameAtLocation(node.expression);
-
       if (leftTypeName in PROPERTIES) {
         const properties = PROPERTIES[leftTypeName as keyof typeof PROPERTIES];
         if (properties.includes(propertyText)) {

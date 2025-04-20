@@ -1,0 +1,22 @@
+{
+  "name": "protection-exemple",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx rollup -c rollup.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@contentsquare/native-protection-transformer": "file:../native-protection-transformer"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "28.0.3",
+    "@rollup/plugin-node-resolve": "16.0.1",
+    "@rollup/plugin-typescript": "12.1.2",
+    "rollup": "4.40.0",
+    "tslib": "2.8.1",
+    "typescript": "5.8.3"
+  }
+}

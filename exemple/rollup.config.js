@@ -2,13 +2,13 @@ const { defineConfig } = require('rollup');
 const typescript = require('@rollup/plugin-typescript');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const commonjs = require('@rollup/plugin-commonjs');
-const { nativeProtectionTransformer } = require('./dist/nativeTranformer.js'); // Importer le transformateur
+const { nativeProtectionTransformer } = require('@contentsquare/native-protection-transformer');
 
 module.exports = defineConfig({
-  input: ['exemple/test.ts'], // Point d'entrée principal
+  input: ['src/test.ts'], // Point d'entrée principal
   output: [
     {
-      file: 'dist2/bundle.esm.mjs',
+      file: 'dist/test.esm.mjs',
       format: 'esm', // Format ES Module
       sourcemap: true,
     },

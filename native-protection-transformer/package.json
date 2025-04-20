@@ -1,0 +1,21 @@
+{
+  "name": "@contentsquare/native-protection-transformer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/nativeTranformer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@contentsquare/runtime-protection": "file:../runtime-protection"
+  },
+  "devDependencies": {
+    "@types/node": "22.14.1",
+    "rollup": "4.40.0",
+    "tslib": "2.8.1",
+    "typescript": "5.8.3"
+  }
+}
