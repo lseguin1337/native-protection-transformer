@@ -8,9 +8,9 @@ module.exports = defineConfig({
   input: ['src/test.ts'], // Point d'entrée principal
   output: [
     {
-      file: 'dist/test.esm.mjs',
+      file: 'dist/test.js',
       format: 'esm', // Format ES Module
-      sourcemap: true,
+      sourcemap: false,
     },
   ],
   plugins: [
@@ -20,6 +20,7 @@ module.exports = defineConfig({
       compilerOptions: {
         module: 'ESNext', // Utiliser le module ESNext
         target: 'ESNext', //
+        // sourcemap: true, // Générer des fichiers de sourcemaps
       },
       transformers: {
         before: [{ type: 'program', factory: nativeProtectionTransformer }], // Appliquer le transformateur

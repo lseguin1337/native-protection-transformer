@@ -1,5 +1,4 @@
 import * as ts from 'typescript';
-import { join } from 'path';
 
 const GLOBALS = [
   'setTimeout', 'queueMicrotask', 'clearTimeout', 'setInterval', 'clearInterval',
