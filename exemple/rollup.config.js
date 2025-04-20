@@ -17,11 +17,7 @@ module.exports = defineConfig({
     nodeResolve(), // Résolution des modules Node.js
     commonjs(), // Conversion des modules CommonJS en ES Modules
     typescript({
-      compilerOptions: {
-        module: 'ESNext', // Utiliser le module ESNext
-        target: 'ESNext', //
-        // sourcemap: true, // Générer des fichiers de sourcemaps
-      },
+      tsconfig: './tsconfig.json', // Chemin vers le fichier de configuration TypeScript
       transformers: {
         before: [{ type: 'program', factory: nativeProtectionTransformer }], // Appliquer le transformateur
       },
