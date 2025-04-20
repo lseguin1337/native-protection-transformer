@@ -40,16 +40,22 @@ export function getGlobal<K extends keyof Global>(key: K): Global[K] {
     : value) as Global[K];
 }
 
-export function getProp(target: string, name: string) {
-  const accessors = target.split(".");
-  const safeWindow = getSafeContext();
-  const safePropName = Symbol(`${target}.${name}`);
-  const safeTarget = get(safeWindow, accessors);
-  const originalTarget = get(window, accessors);
-  const safeDescriptor = Object.getOwnPropertyDescriptor(safeTarget, name);
-  if (safeDescriptor) {
-    Object.defineProperty(originalTarget, safePropName, safeDescriptor);
-    return safePropName;
+export function getProp(targets: string | string[], name: string) {
+  const safePropName = Symbol.for(`cs_prop_${name}`);
+  if (typeof targets === "string") {
+    targets = [targets];
   }
-  return name;
+  for (let i = 0; i < targets.length; i++) {
+    const target = targets[i];
+    const accessors = target.split(".");
+    const safeWindow = getSafeContext();
+    const safeTarget = get(safeWindow, accessors);
+    const originalTarget = get(window, accessors);
+    const safeDescriptor = Object.getOwnPropertyDescriptor(safeTarget, name);
+    if (!safeDescriptor) {
+      return name;
+    }
+    Object.defineProperty(originalTarget, safePropName, safeDescriptor);
+  }
+  return safePropName;
 }

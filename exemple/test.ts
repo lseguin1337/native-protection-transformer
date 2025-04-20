@@ -10,10 +10,12 @@ function bootstrap() {
   }, 20)
 
   setTimeout(() => {
-    console.log(time, document.body.childNodes.length);
-    console.log('el', el?.childNodes[0]?.nodeType);
-    myArray.push(4);
-    console.log(myString.split(" "));
+    console.log({ time });
+    console.log('Node.querySelectorAll', document.querySelectorAll("div"));
+    console.log('Node.childNodes.length', document.body.childNodes.length);
+    console.log('Node.childNodes[0].nodeType', document.body?.childNodes[0]?.nodeType);
+    console.log('Array.push', myArray.push(4));
+    console.log('String.split', myString.split(" "));
   }, 1000);
 }
 

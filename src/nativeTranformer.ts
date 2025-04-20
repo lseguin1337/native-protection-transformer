@@ -9,7 +9,10 @@ const GLOBALS = [
 const PROPERTIES = {
   'array': ['push', 'pop', 'shift', 'unshift', 'splice', 'slice', 'concat', 'indexOf', 'map'],
   'string': ['indexOf', 'slice', 'split', 'trim', 'replace', 'match'],
-  'node': ['nodeType', 'parentNode', 'childNodes', 'firstChild', 'lastChild', 'nextSibling', 'previousSibling', 'shadowRoot', 'localName'],
+  'node': [
+    'nodeType', 'parentNode', 'childNodes', 'firstChild', 'lastChild', 'nextSibling',
+    'previousSibling', 'shadowRoot', 'localName', 'querySelectorAll', 'querySelector'
+  ],
 };
 
 abstract class BaseTransformer {

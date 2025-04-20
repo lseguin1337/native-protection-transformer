@@ -24,8 +24,12 @@ export const nodeLastChild = /* @__PURE__ */ getProp(NodePrototype, "lastChild")
 export const nodeNextSibling = /* @__PURE__ */ getProp(NodePrototype, "nextSibling");
 export const nodePreviousSibling = /* @__PURE__ */ getProp(NodePrototype, "previousSibling");
 const ElementPrototype = "Element.prototype";
+const DocumentPrototype = "Document.prototype";
+const ShadowRootPrototype = "ShadowRoot.prototype";
 export const nodeShadowRoot = /* @__PURE__ */ getProp(ElementPrototype, "shadowRoot");
 export const nodeLocalName = /* @__PURE__ */ getProp(ElementPrototype, "localName");
+export const nodeQuerySelectorAll = /* @__PURE__ */ getProp([ElementPrototype, DocumentPrototype, ShadowRootPrototype], "querySelectorAll");
+export const nodeQuerySelector = /* @__PURE__ */ getProp([ElementPrototype, DocumentPrototype, ShadowRootPrototype], "querySelector");
 
 const ArrayPrototype = "Array.prototype";
 export const arrayPush = /* @__PURE__ */ getProp(ArrayPrototype, "push");
