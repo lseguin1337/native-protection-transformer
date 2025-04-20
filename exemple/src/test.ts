@@ -16,6 +16,7 @@ function bootstrap() {
     console.log('Node.childNodes[0].nodeType', document.body?.childNodes[0]?.nodeType);
     console.log('Array.push', myArray.push(4));
     console.log('String.split', myString.split(" "));
+    document.body.querySelector('abc'.replace('a','b'))?.childNodes[0];
   }, 1000);
 }
 
