@@ -1,11 +1,12 @@
 {
-  "name": "native-transformer",
+  "name": "native-protection-transformer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -p tsconfig.transformer.json && tsc -p tsconfig.runtime.json"
+    "build": "tsc -p tsconfig.transformer.json && tsc -p tsconfig.runtime.json",
+    "build:exemple": "npm run build && npx rollup -c rollup.config.js"
   },
   "author": "",
   "license": "ISC",
