@@ -1,0 +1,21 @@
+{
+  "name": "native-transformer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.transformer.json && tsc -p tsconfig.runtime.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "28.0.3",
+    "@rollup/plugin-node-resolve": "16.0.1",
+    "@rollup/plugin-typescript": "12.1.2",
+    "@types/node": "22.14.1",
+    "rollup": "4.40.0",
+    "tslib": "2.8.1",
+    "typescript": "5.8.3"
+  }
+}

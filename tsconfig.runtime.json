@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // Version ECMAScript cible
+    "module": "ESNext", // Utilisation des modules CommonJS pour Node.js
+    "moduleResolution": "Node", // Résolution des modules Node.js
+    "strict": true, // Activer les vérifications strictes
+    "esModuleInterop": true, // Interopérabilité avec les modules CommonJS
+    "skipLibCheck": true, // Ignorer la vérification des types des fichiers de bibliothèque
+    "declaration": false, // Générer des fichiers de déclaration .d.ts
+    "outDir": "dist", // Répertoire de sortie
+    "sourceMap": false, // Générer des fichiers source map
+    "lib": ["DOM", "ES2020"],
+  },
+  "files": ["src/nativeFunctions.ts"],
+  "exclude": ["node_modules", "dist"] // Exclure les répertoires non pertinents
+}
