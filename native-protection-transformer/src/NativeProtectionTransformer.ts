@@ -67,6 +67,10 @@ export class NativeProtectionTransformer extends BaseTransformer {
     return 'unknown';
   }
 
+  private setParent(node: ts.Node, parent: ts.Node) {
+    (node as any).parent = parent;
+  }
+
   protected transformNode(node: ts.Node): ts.Node | undefined {
     if (ts.isIdentifier(node) && GLOBALS.includes(node.text)) {
       this.importsToAdd.add(node.text);
@@ -81,7 +85,9 @@ export class NativeProtectionTransformer extends BaseTransformer {
         if (properties.includes(propertyText)) {
           const importName = `${leftTypeName}${propertyText.replace(/^[a-z]/, c => c.toUpperCase())}`;
           this.importsToAdd.add(importName);
-          return this.createAccessExpression(node, importName);
+          const accessExpression = this.createAccessExpression(node, importName);
+          this.setParent(accessExpression, node.parent);
+          return accessExpression;
         }
       }
     }

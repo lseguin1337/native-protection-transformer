@@ -21,9 +21,9 @@ module.exports = defineConfig({
       tsconfig: './tsconfig.json', // Chemin vers le fichier de configuration TypeScript
       transformers: {
         before: [
-          { type: 'program', factory: pureTransformer },
+          { type: 'program', factory: pureTransformer }, // TODO: understand why I can't invert the order
           { type: 'program', factory: nativeProtectionTransformer },
-        ], // Appliquer le transformateur
+        ],
       },
     }),
   ],
