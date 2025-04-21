@@ -10,6 +10,6 @@
     "outDir": "dist", // Répertoire de sortie
     "sourceMap": false // Générer des fichiers source map
   },
-  "include": ["src/nativeTranformer.ts"], // Inclure tous les fichiers TypeScript dans src
+  "include": ["src/index.ts"], // Inclure tous les fichiers TypeScript dans src
   "exclude": ["node_modules", "dist"] // Exclure les répertoires non pertinents
 }
