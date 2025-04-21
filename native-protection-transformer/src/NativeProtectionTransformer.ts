@@ -55,7 +55,7 @@ export class NativeProtectionTransformer extends BaseTransformer {
 
   protected getTypeNameAtLocation(node: ts.Node): string {
     const type = this.getTypeAtLocation(node);
-    if (this.typeChecker.isArrayType(type)) {
+    if (this.isSubtypeOf(type, 'Array')) {
       return 'array';
     }
     if (this.isSubtypeOf(type, 'Node')) {

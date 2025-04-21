@@ -30,6 +30,9 @@ export abstract class BaseTransformer {
       // TODO: check if null or undefined and raise an error if it's an other object
       return type.types.some((t) => this.isSubtypeOf(t, targetTypeName));
     }
+    if (targetTypeName === 'Array') {
+      return this.typeChecker.isArrayType(type);
+    }
     const targetSymbol = this.typeChecker.resolveName(
       targetTypeName,
       undefined,
