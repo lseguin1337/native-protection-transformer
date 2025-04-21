@@ -76,7 +76,6 @@ export class NativeProtectionTransformer extends BaseTransformer {
     if (ts.isPropertyAccessExpression(node)) {
       const propertyText = node.name.text;
       const leftTypeName = this.getTypeNameAtLocation(node.expression);
-      console.log(leftTypeName, propertyText);
       if (leftTypeName in PROPERTIES) {
         const properties = PROPERTIES[leftTypeName as keyof typeof PROPERTIES];
         if (properties.includes(propertyText)) {

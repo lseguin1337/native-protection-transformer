@@ -25,7 +25,7 @@ const getSafeContext = /* @__PURE__ */ memo(() => {
 
 function get<T = any>(target: any, accessors: string[]): T {
   let value: any = target;
-  for (let i = 0; i < accessors.length; i++) {
+  for (let i = 0; i < accessors.length && value; i++) {
     const accessor = accessors[i];
     value = value[accessor];
   }
@@ -37,13 +37,12 @@ export function getGlobal<K extends keyof Global>(key: K): Global[K] {
 }
 
 export function getProp(targets: string | string[], name: string) {
-  const safePropName = Symbol.for(`cs_prop_${name}`);
+  const safePropName = Symbol.for(`__npt__${name}`);
   if (typeof targets === "string") {
     targets = [targets];
   }
   for (let i = 0; i < targets.length; i++) {
-    const target = targets[i];
-    const accessors = target.split(".");
+    const accessors = targets[i].split(".");
     const safeWindow = getSafeContext();
     const safeTarget = get(safeWindow, accessors);
     const originalTarget = get(window, accessors);
