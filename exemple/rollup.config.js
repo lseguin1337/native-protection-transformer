@@ -3,6 +3,7 @@ const typescript = require('@rollup/plugin-typescript');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const commonjs = require('@rollup/plugin-commonjs');
 const { nativeProtectionTransformer } = require('@contentsquare/native-protection-transformer');
+const { pureTransformer } = require('@contentsquare/pure-transformer');
 
 module.exports = defineConfig({
   input: ['src/test.ts'], // Point d'entrée principal
@@ -19,7 +20,10 @@ module.exports = defineConfig({
     typescript({
       tsconfig: './tsconfig.json', // Chemin vers le fichier de configuration TypeScript
       transformers: {
-        before: [{ type: 'program', factory: nativeProtectionTransformer }], // Appliquer le transformateur
+        before: [
+          { type: 'program', factory: pureTransformer },
+          { type: 'program', factory: nativeProtectionTransformer },
+        ], // Appliquer le transformateur
       },
     }),
   ],

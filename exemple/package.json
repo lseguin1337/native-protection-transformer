@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@contentsquare/native-protection-transformer": "file:../native-protection-transformer"
+    "@contentsquare/native-protection-transformer": "file:../native-protection-transformer",
+    "@contentsquare/pure-transformer": "file:../pure-transformer"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "28.0.3",
