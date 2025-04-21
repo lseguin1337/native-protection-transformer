@@ -33,11 +33,7 @@ function get<T = any>(target: any, accessors: string[]): T {
 }
 
 export function getGlobal<K extends keyof Global>(key: K): Global[K] {
-  const w = getSafeContext();
-  const value = w[key];
-  return (typeof value === 'function' && value.prototype == null
-    ? value.bind(window)
-    : value) as Global[K];
+  return getSafeContext()[key];
 }
 
 export function getProp(targets: string | string[], name: string) {

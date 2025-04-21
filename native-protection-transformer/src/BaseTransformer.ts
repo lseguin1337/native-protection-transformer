@@ -26,15 +26,17 @@ export abstract class BaseTransformer {
   }
 
   isSubtypeOf(type: ts.Type, targetTypeName: string): boolean {
+    if (type.isUnion()) {
+      // TODO: check if null or undefined and raise an error if it's an other object
+      return type.types.some((t) => this.isSubtypeOf(t, targetTypeName));
+    }
     const targetSymbol = this.typeChecker.resolveName(
       targetTypeName,
       undefined,
       ts.SymbolFlags.Type,
       false
     );
-  
     if (!targetSymbol) return false;
-  
     const targetType = this.typeChecker.getDeclaredTypeOfSymbol(targetSymbol);
     return this.typeChecker.isTypeAssignableTo(type, targetType);
   }
