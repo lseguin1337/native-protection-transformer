@@ -1,7 +1,19 @@
 # Exemple
 
-Simple usage of the `native-protection-transformer` library which is a Typescript transformer, that will use an iframe to isolate native document API.
+This folder demonstrates the usage of the `native-protection-transformer` library, a TypeScript transformer that isolates native document APIs using an iframe.
 
-Look at the rollup.config.js to see how to use the transformer.
+## How to Run
 
-Build the project and look at the result into the `dist` folder.
+1. Build the project by running:
+   ```shell
+   npm run build
+   ```
+
+2. Check the `rollup.config.js` file to see how the transformer is integrated.
+
+3. Look at the output in the `dist` folder.
+
+## Notes
+
+- Ensure you have Rollup installed to test the example.
+- Modify the `src/test.ts` file to experiment with the transformer.
