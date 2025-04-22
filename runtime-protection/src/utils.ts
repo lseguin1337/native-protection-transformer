@@ -42,5 +42,6 @@ export function getProp(targets: string | string[], name: string) {
 }
 
 export function removeSafeFrame() {
+  // TODO: avoid removing it for the browser that doesn't support it
   frame.remove();
 }
