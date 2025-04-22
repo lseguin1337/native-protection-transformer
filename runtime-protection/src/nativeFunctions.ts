@@ -14,8 +14,7 @@ export const RegExp = /* @__PURE__ */ getGlobal("RegExp");
 export const screen = /* @__PURE__ */ getGlobal("screen");
 
 // properties
-
-const NodePrototype = "Node.prototype";
+const NodePrototype = "Node";
 export const Node_nodeType = /* @__PURE__ */ getProp(NodePrototype, "nodeType");
 export const Node_parentNode = /* @__PURE__ */ getProp(NodePrototype, "parentNode");
 export const Node_childNodes = /* @__PURE__ */ getProp(NodePrototype, "childNodes");
@@ -23,15 +22,15 @@ export const Node_firstChild = /* @__PURE__ */ getProp(NodePrototype, "firstChil
 export const Node_lastChild = /* @__PURE__ */ getProp(NodePrototype, "lastChild");
 export const Node_nextSibling = /* @__PURE__ */ getProp(NodePrototype, "nextSibling");
 export const Node_previousSibling = /* @__PURE__ */ getProp(NodePrototype, "previousSibling");
-const ElementPrototype = "Element.prototype";
-const DocumentPrototype = "Document.prototype";
-const ShadowRootPrototype = "ShadowRoot.prototype";
+const ElementPrototype = "Element";
+const DocumentPrototype = "Document";
+const ShadowRootPrototype = "ShadowRoot";
 export const Node_shadowRoot = /* @__PURE__ */ getProp(ElementPrototype, "shadowRoot");
 export const Node_localName = /* @__PURE__ */ getProp(ElementPrototype, "localName");
 export const Node_querySelectorAll = /* @__PURE__ */ getProp([ElementPrototype, DocumentPrototype, ShadowRootPrototype], "querySelectorAll");
 export const Node_querySelector = /* @__PURE__ */ getProp([ElementPrototype, DocumentPrototype, ShadowRootPrototype], "querySelector");
 
-const ArrayPrototype = "Array.prototype";
+const ArrayPrototype = "Array";
 export const Array_push = /* @__PURE__ */ getProp(ArrayPrototype, "push");
 export const Array_pop = /* @__PURE__ */ getProp(ArrayPrototype, "pop");
 export const Array_shift = /* @__PURE__ */ getProp(ArrayPrototype, "shift");
@@ -42,12 +41,15 @@ export const Array_concat = /* @__PURE__ */ getProp(ArrayPrototype, "concat");
 export const Array_indexOf = /* @__PURE__ */ getProp(ArrayPrototype, "indexOf");
 export const Array_map = /* @__PURE__ */ getProp(ArrayPrototype, "map");
 
-const StringPrototype = "String.prototype";
+const StringPrototype = "String";
 export const String_indexOf = /* @__PURE__ */ getProp(StringPrototype, "indexOf");
 export const String_slice = /* @__PURE__ */ getProp(StringPrototype, "slice");
 export const String_split = /* @__PURE__ */ getProp(StringPrototype, "split");
 export const String_trim = /* @__PURE__ */ getProp(StringPrototype, "trim");
 export const String_replace = /* @__PURE__ */ getProp(StringPrototype, "replace");
 export const String_match = /* @__PURE__ */ getProp(StringPrototype, "match");
+
+const NavigatorPrototype = "Navigator";
+export const Navigator_sendBeacon = /* @__PURE__ */ getProp(NavigatorPrototype, "sendBeacon");
 
 removeSafeFrame();

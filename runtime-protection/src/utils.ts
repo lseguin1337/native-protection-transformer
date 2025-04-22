@@ -10,13 +10,8 @@ const safeWindow = (() => {
   }
 })();
 
-function get<T = any>(target: any, accessors: string[]): T {
-  let value: any = target;
-  for (let i = 0; i < accessors.length && value; i++) {
-    const accessor = accessors[i];
-    value = value[accessor];
-  }
-  return value;
+function get<T = any>(target: any, key: string): T {
+  return target[key];
 }
 
 export function getGlobal<K extends keyof Global>(key: K): Global[K] {
@@ -29,9 +24,9 @@ export function getProp(targets: string | string[], name: string) {
     targets = [targets];
   }
   for (let i = 0; i < targets.length; i++) {
-    const accessors = targets[i].split(".");
-    const safeTarget = get(safeWindow, accessors);
-    const originalTarget = get(window, accessors);
+    const klassName = targets[i];
+    const safeTarget = get(safeWindow, klassName).prototype;
+    const originalTarget = get(window, klassName).prototype;
     const safeDescriptor = Object.getOwnPropertyDescriptor(safeTarget, name);
     if (!safeDescriptor) {
       return name;
