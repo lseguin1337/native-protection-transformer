@@ -8,6 +8,11 @@ const { globals: GLOBALS, properties: PROPERTIES } = parseRuntimeFile(runtimeFil
 export class NativeProtectionTransformer extends BaseTransformer {
   private importsToAdd: Set<string> = new Set();
 
+  constructor(program: ts.Program, context: ts.TransformationContext) {
+    super(program, context);
+    this.ignoredDecoration = '@native-protection-do-not-transform';
+  }
+
   transformFile(sourceFile: ts.SourceFile): ts.SourceFile {
     const transformedSourceFile = this.visit(sourceFile);
     if (this.importsToAdd.size > 0) {

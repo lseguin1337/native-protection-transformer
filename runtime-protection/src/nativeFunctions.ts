@@ -1,10 +1,10 @@
 import { getGlobal, getProp, removeSafeFrame } from "./utils";
 
 /**
- * Warning the naming convention is important here to make the native protection transformer work
- * 
- * The function name should be the same as the global name in the browser
- * ClassName_methodName is the format used to identify the method to be transformed
+ * ⚠️ Important: Follow the naming conventions strictly for the native protection transformer to function correctly.
+ *
+ * - To replace a global API, export it using the exact same name as the global API.
+ * - To replace a property of a class, export it using the format `ClassName_propertyName` (e.g., `String_indexOf`).
  */
 
 export const setTimeout = /* @__PURE__ */ getGlobal("setTimeout");

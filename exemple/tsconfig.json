@@ -8,6 +8,7 @@
     "skipLibCheck": true,
     "declaration": false,
     "sourceMap": false,
+    "removeComments": false,
     "lib": ["DOM", "ES2020"],
   },
   "exclude": ["node_modules", "dist"] // Exclure les répertoires non pertinents

@@ -6,14 +6,37 @@ export abstract class BaseTransformer {
     protected context: ts.TransformationContext
   ) {}
 
+  protected ignoredDecoration?: string;
   protected abstract transformNode?(node: ts.Node): ts.Node | undefined;
 
   protected get typeChecker() {
     return this.program.getTypeChecker();
   }
 
+  private getFullText(node: ts.Node): string {
+    try {
+      return node.getFullText();
+    } catch {
+      return '';
+    }
+  }
+
   visit<N extends ts.Node>(node: N): N {
     const visit = (node: ts.Node): ts.Node => {
+      // do not visit nodes that are prefixed with the ignored decoration comment /* @${this.ignoredDecoration} */
+      if (this.ignoredDecoration) {
+        const fullText = this.getFullText(node);
+        const leadingComments = ts.getLeadingCommentRanges(fullText, 0);
+        if (leadingComments) {
+          for (const comment of leadingComments) {
+            const commentText = fullText.slice(comment.pos, comment.end);
+            if (commentText.includes(this.ignoredDecoration)) {
+              return node; // Skip visiting this node
+            }
+          }
+        }
+      }
+
       if (this.transformNode) {
         const result = this.transformNode(node);
         if (result !== undefined) {
@@ -22,7 +45,7 @@ export abstract class BaseTransformer {
       }
       return ts.visitEachChild(node, this.visit.bind(this), this.context);
     };
-    return ts.visitNode(node, visit) as N;
+    return visit(node) as N;
   }
 
   isSubtypeOf(type: ts.Type, targetTypeName: string): boolean {
