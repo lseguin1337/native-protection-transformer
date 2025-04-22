@@ -1,22 +1,9 @@
 import * as ts from 'typescript';
 import { BaseTransformer } from './BaseTransformer';
+import { parseRuntimeFile } from './parseRuntimeFile';
 
-// TODO: read the runtime file and parse it to know what can be replaced
 const runtimeFile = require.resolve("@contentsquare/runtime-protection");
-
-const GLOBALS = [
-  'setTimeout', 'queueMicrotask', 'clearTimeout', 'setInterval', 'clearInterval',
-  'Date', 'JSON', 'URL', 'MutationObserver', 'RegExp', 'screen'
-];
-
-const PROPERTIES = {
-  'Array': ['push', 'pop', 'shift', 'unshift', 'splice', 'slice', 'concat', 'indexOf', 'map'],
-  'String': ['indexOf', 'slice', 'split', 'trim', 'replace', 'match'],
-  'Node': [
-    'nodeType', 'parentNode', 'childNodes', 'firstChild', 'lastChild', 'nextSibling',
-    'previousSibling', 'shadowRoot', 'localName', 'querySelectorAll', 'querySelector'
-  ],
-};
+const { globals: GLOBALS, properties: PROPERTIES } = parseRuntimeFile(runtimeFile);
 
 export class NativeProtectionTransformer extends BaseTransformer {
   private importsToAdd: Set<string> = new Set();
@@ -82,7 +69,7 @@ export class NativeProtectionTransformer extends BaseTransformer {
       if (leftTypeName in PROPERTIES) {
         const properties = PROPERTIES[leftTypeName as keyof typeof PROPERTIES];
         if (properties.includes(propertyText)) {
-          const importName = `${leftTypeName.toLowerCase()}${propertyText.replace(/^[a-z]/, c => c.toUpperCase())}`;
+          const importName = `${leftTypeName}_${propertyText}`;
           this.importsToAdd.add(importName);
           const accessExpression = this.createAccessExpression(node, importName);
           this.setParent(accessExpression, node.parent);
