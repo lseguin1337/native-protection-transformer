@@ -1,16 +1,6 @@
 type Global = Window & typeof globalThis;
 
-function memo<T = any>(fn: () => T) {
-  let value: T | undefined;
-  return () => {
-    if (value === undefined) {
-      value = fn();
-    }
-    return value as T;
-  };
-}
-
-const getSafeContext = /* @__PURE__ */ memo(() => {
+const safeWindow = (() => {
   const frame = document.createElement("iframe");
   try {
     (document.head || document.body).appendChild(frame);
@@ -21,7 +11,7 @@ const getSafeContext = /* @__PURE__ */ memo(() => {
     // should not remove the frame
     // frame.remove();
   }
-});
+})();
 
 function get<T = any>(target: any, accessors: string[]): T {
   let value: any = target;
@@ -33,7 +23,7 @@ function get<T = any>(target: any, accessors: string[]): T {
 }
 
 export function getGlobal<K extends keyof Global>(key: K): Global[K] {
-  return getSafeContext()[key];
+  return safeWindow[key];
 }
 
 export function getProp(targets: string | string[], name: string) {
@@ -43,7 +33,6 @@ export function getProp(targets: string | string[], name: string) {
   }
   for (let i = 0; i < targets.length; i++) {
     const accessors = targets[i].split(".");
-    const safeWindow = getSafeContext();
     const safeTarget = get(safeWindow, accessors);
     const originalTarget = get(window, accessors);
     const safeDescriptor = Object.getOwnPropertyDescriptor(safeTarget, name);

@@ -15,8 +15,7 @@ function extractExportedVariables(code: string): string[] {
     }
     ts.forEachChild(node, visit);
   }
-
-  ts.forEachChild(sourceFile, visit);
+  visit(sourceFile);
 
   return exportedVariables;
 }
