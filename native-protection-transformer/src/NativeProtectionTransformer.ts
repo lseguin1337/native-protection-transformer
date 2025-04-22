@@ -1,6 +1,9 @@
 import * as ts from 'typescript';
 import { BaseTransformer } from './BaseTransformer';
 
+// TODO: read the runtime file and parse it to know what can be replaced
+const runtimeFile = require.resolve("@contentsquare/runtime-protection");
+
 const GLOBALS = [
   'setTimeout', 'queueMicrotask', 'clearTimeout', 'setInterval', 'clearInterval',
   'Date', 'JSON', 'URL', 'MutationObserver', 'RegExp', 'screen'
@@ -36,7 +39,7 @@ export class NativeProtectionTransformer extends BaseTransformer {
       /* name (default import) */ undefined,
       ts.factory.createNamedImports(imports.map(name => ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(name))))
     );
-    const moduleSpecifier = ts.factory.createStringLiteral(require.resolve("@contentsquare/runtime-protection"));
+    const moduleSpecifier = ts.factory.createStringLiteral(runtimeFile);
     return ts.factory.createImportDeclaration(
       undefined,
       importClause,
