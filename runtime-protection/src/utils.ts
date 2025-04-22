@@ -1,15 +1,12 @@
 type Global = Window & typeof globalThis;
 
+const frame = document.createElement("iframe");
 const safeWindow = (() => {
-  const frame = document.createElement("iframe");
   try {
     (document.head || document.body).appendChild(frame);
     return frame.contentWindow as any as Global;
   } catch (e) {
     return window;
-  } finally {
-    // should not remove the frame
-    // frame.remove();
   }
 })();
 
@@ -42,4 +39,8 @@ export function getProp(targets: string | string[], name: string) {
     Object.defineProperty(originalTarget, safePropName, safeDescriptor);
   }
   return safePropName;
+}
+
+export function removeSafeFrame() {
+  frame.remove();
 }

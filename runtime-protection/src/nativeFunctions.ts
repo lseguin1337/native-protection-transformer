@@ -1,4 +1,4 @@
-import { getGlobal, getProp } from "./utils";
+import { getGlobal, getProp, removeSafeFrame } from "./utils";
 
 export const setTimeout = /* @__PURE__ */ getGlobal("setTimeout");
 export const queueMicrotask = /* @__PURE__ */ getGlobal("queueMicrotask");
@@ -49,3 +49,5 @@ export const String_split = /* @__PURE__ */ getProp(StringPrototype, "split");
 export const String_trim = /* @__PURE__ */ getProp(StringPrototype, "trim");
 export const String_replace = /* @__PURE__ */ getProp(StringPrototype, "replace");
 export const String_match = /* @__PURE__ */ getProp(StringPrototype, "match");
+
+removeSafeFrame();
