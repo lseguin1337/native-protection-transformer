@@ -7,9 +7,9 @@ const GLOBALS = [
 ];
 
 const PROPERTIES = {
-  'array': ['push', 'pop', 'shift', 'unshift', 'splice', 'slice', 'concat', 'indexOf', 'map'],
-  'string': ['indexOf', 'slice', 'split', 'trim', 'replace', 'match'],
-  'node': [
+  'Array': ['push', 'pop', 'shift', 'unshift', 'splice', 'slice', 'concat', 'indexOf', 'map'],
+  'String': ['indexOf', 'slice', 'split', 'trim', 'replace', 'match'],
+  'Node': [
     'nodeType', 'parentNode', 'childNodes', 'firstChild', 'lastChild', 'nextSibling',
     'previousSibling', 'shadowRoot', 'localName', 'querySelectorAll', 'querySelector'
   ],
@@ -55,14 +55,10 @@ export class NativeProtectionTransformer extends BaseTransformer {
 
   protected getTypeNameAtLocation(node: ts.Node): string {
     const type = this.getTypeAtLocation(node);
-    if (this.isSubtypeOf(type, 'Array')) {
-      return 'array';
-    }
-    if (this.isSubtypeOf(type, 'Node')) {
-      return 'node';
-    }
-    if (this.isSubtypeOf(type, 'String')) {
-      return 'string';
+    for (const TypeName in PROPERTIES) {
+      if (this.isSubtypeOf(type, TypeName)) {
+        return TypeName;
+      }
     }
     return 'unknown';
   }
@@ -83,7 +79,7 @@ export class NativeProtectionTransformer extends BaseTransformer {
       if (leftTypeName in PROPERTIES) {
         const properties = PROPERTIES[leftTypeName as keyof typeof PROPERTIES];
         if (properties.includes(propertyText)) {
-          const importName = `${leftTypeName}${propertyText.replace(/^[a-z]/, c => c.toUpperCase())}`;
+          const importName = `${leftTypeName.toLowerCase()}${propertyText.replace(/^[a-z]/, c => c.toUpperCase())}`;
           this.importsToAdd.add(importName);
           const accessExpression = this.createAccessExpression(node, importName);
           this.setParent(accessExpression, node.parent);
