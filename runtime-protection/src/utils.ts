@@ -10,23 +10,19 @@ const safeWindow = (() => {
   }
 })();
 
-function get<T = any>(target: any, key: string): T {
-  return target[key];
-}
-
 export function getGlobal<K extends keyof Global>(key: K): Global[K] {
   return safeWindow[key];
 }
 
-export function getProp(targets: string | string[], name: string) {
-  const safePropName = Symbol.for(`__npt__${name}`);
+export function getPropertyName(targets: string | string[], name: string) {
+  const safePropName = `__npt__${name}`; // we can use a Symbol here
   if (typeof targets === "string") {
     targets = [targets];
   }
   for (let i = 0; i < targets.length; i++) {
-    const klassName = targets[i];
-    const safeTarget = get(safeWindow, klassName).prototype;
-    const originalTarget = get(window, klassName).prototype;
+    const klassName = targets[i] as keyof Global;
+    const safeTarget = safeWindow[klassName].prototype;
+    const originalTarget = window[klassName].prototype;
     const safeDescriptor = Object.getOwnPropertyDescriptor(safeTarget, name);
     if (!safeDescriptor) {
       return name;
