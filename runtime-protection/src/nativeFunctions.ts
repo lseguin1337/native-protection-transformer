@@ -1,5 +1,12 @@
 import { getGlobal, getProp, removeSafeFrame } from "./utils";
 
+/**
+ * Warning the naming convention is important here to make the native protection transformer work
+ * 
+ * The function name should be the same as the global name in the browser
+ * ClassName_methodName is the format used to identify the method to be transformed
+ */
+
 export const setTimeout = /* @__PURE__ */ getGlobal("setTimeout");
 export const queueMicrotask = /* @__PURE__ */ getGlobal("queueMicrotask");
 export const clearTimeout = /* @__PURE__ */ getGlobal("clearTimeout");
