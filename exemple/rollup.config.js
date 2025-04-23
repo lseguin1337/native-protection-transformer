@@ -9,7 +9,7 @@ module.exports = defineConfig({
   input: ['src/test.ts'], // Point d'entrée principal
   output: [
     {
-      file: 'dist/test.js',
+      file: 'dist/rollup.js',
       format: 'esm', // Format ES Module
       sourcemap: false,
     },

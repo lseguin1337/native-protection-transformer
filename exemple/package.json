@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx rollup -c rollup.config.js"
+    "build": "npx rollup -c rollup.config.js",
+    "build:webpack": "npx webpack"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +18,10 @@
     "@rollup/plugin-node-resolve": "16.0.1",
     "@rollup/plugin-typescript": "12.1.2",
     "rollup": "4.40.0",
+    "ts-loader": "9.5.2",
     "tslib": "2.8.1",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "webpack": "5.99.6",
+    "webpack-cli": "6.0.1"
   }
 }

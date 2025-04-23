@@ -45,7 +45,7 @@ export abstract class BaseTransformer {
       }
       return ts.visitEachChild(node, this.visit.bind(this), this.context);
     };
-    return visit(node) as N;
+    return ts.visitNode(node, visit) as N;
   }
 
   isSubtypeOf(type: ts.Type, targetTypeName: string): boolean {
