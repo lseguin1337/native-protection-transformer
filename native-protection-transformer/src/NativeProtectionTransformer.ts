@@ -48,16 +48,6 @@ export class NativeProtectionTransformer extends BaseTransformer {
     return ts.factory.createElementAccessExpression(expression, identifier);
   }
 
-  protected getTypeNameAtLocation(node: ts.Node): string {
-    const type = this.getTypeAtLocation(node);
-    for (const TypeName in PROPERTIES) {
-      if (this.isSubtypeOf(type, TypeName)) {
-        return TypeName;
-      }
-    }
-    return 'unknown';
-  }
-
   private setParent(node: ts.Node, parent: ts.Node) {
     (node as any).parent = parent;
   }
@@ -70,11 +60,10 @@ export class NativeProtectionTransformer extends BaseTransformer {
 
     if (ts.isPropertyAccessExpression(node)) {
       const propertyText = node.name.text;
-      const leftTypeName = this.getTypeNameAtLocation(node.expression);
-      if (leftTypeName in PROPERTIES) {
-        const properties = PROPERTIES[leftTypeName as keyof typeof PROPERTIES];
-        if (properties.includes(propertyText)) {
-          const importName = `${leftTypeName}_${propertyText}`;
+      for (const TypeName in PROPERTIES) {
+        const properties = PROPERTIES[TypeName];
+        if (properties.includes(propertyText) && this.isSubtypeOf(this.getTypeAtLocation(node), TypeName)) {
+          const importName = `${TypeName}_${propertyText}`;
           this.importsToAdd.add(importName);
           const accessExpression = this.createAccessExpression(node, importName);
           this.setParent(accessExpression, node.parent);
