@@ -7,6 +7,9 @@ import { getGlobal, getPropertyName, removeSafeFrame } from "./utils";
  * - To replace a property of a class, export it using the format `ClassName_propertyName` (e.g., `String_indexOf`).
  */
 
+const scope = (className: string) => (prop: string) =>
+  getPropertyName(className, prop);
+
 export const setTimeout = /* @__PURE__ */ getGlobal("setTimeout");
 export const queueMicrotask = /* @__PURE__ */ getGlobal("queueMicrotask");
 export const clearTimeout = /* @__PURE__ */ getGlobal("clearTimeout");
@@ -20,43 +23,62 @@ export const MutationObserver = /* @__PURE__ */ getGlobal("MutationObserver");
 export const RegExp = /* @__PURE__ */ getGlobal("RegExp");
 export const screen = /* @__PURE__ */ getGlobal("screen");
 
-// properties
-const NodePrototype = "Node";
-export const Node_nodeType = /* @__PURE__ */ getPropertyName(NodePrototype, "nodeType");
-export const Node_parentNode = /* @__PURE__ */ getPropertyName(NodePrototype, "parentNode");
-export const Node_childNodes = /* @__PURE__ */ getPropertyName(NodePrototype, "childNodes");
-export const Node_firstChild = /* @__PURE__ */ getPropertyName(NodePrototype, "firstChild");
-export const Node_lastChild = /* @__PURE__ */ getPropertyName(NodePrototype, "lastChild");
-export const Node_nextSibling = /* @__PURE__ */ getPropertyName(NodePrototype, "nextSibling");
-export const Node_previousSibling = /* @__PURE__ */ getPropertyName(NodePrototype, "previousSibling");
-const ElementPrototype = "Element";
-const DocumentPrototype = "Document";
-const ShadowRootPrototype = "ShadowRoot";
-export const Node_shadowRoot = /* @__PURE__ */ getPropertyName(ElementPrototype, "shadowRoot");
-export const Node_localName = /* @__PURE__ */ getPropertyName(ElementPrototype, "localName");
-export const Node_querySelectorAll = /* @__PURE__ */ getPropertyName([ElementPrototype, DocumentPrototype, ShadowRootPrototype], "querySelectorAll");
-export const Node_querySelector = /* @__PURE__ */ getPropertyName([ElementPrototype, DocumentPrototype, ShadowRootPrototype], "querySelector");
+// Node
+let g = scope("Node");
+export const Node_nodeType = /* @__PURE__ */ g("nodeType");
+export const Node_parentNode = /* @__PURE__ */ g("parentNode");
+export const Node_childNodes = /* @__PURE__ */ g("childNodes");
+export const Node_firstChild = /* @__PURE__ */ g("firstChild");
+export const Node_lastChild = /* @__PURE__ */ g("lastChild");
+export const Node_nextSibling = /* @__PURE__ */ g("nextSibling");
+export const Node_previousSibling = /* @__PURE__ */ g("previousSibling");
+export const Node_localName = /* @__PURE__ */ g("localName");
 
-const ArrayPrototype = "Array";
-export const Array_push = /* @__PURE__ */ getPropertyName(ArrayPrototype, "push");
-export const Array_pop = /* @__PURE__ */ getPropertyName(ArrayPrototype, "pop");
-export const Array_shift = /* @__PURE__ */ getPropertyName(ArrayPrototype, "shift");
-export const Array_unshift = /* @__PURE__ */ getPropertyName(ArrayPrototype, "unshift");
-export const Array_splice = /* @__PURE__ */ getPropertyName(ArrayPrototype, "splice");
-export const Array_slice = /* @__PURE__ */ getPropertyName(ArrayPrototype, "slice");
-export const Array_concat = /* @__PURE__ */ getPropertyName(ArrayPrototype, "concat");
-export const Array_indexOf = /* @__PURE__ */ getPropertyName(ArrayPrototype, "indexOf");
-export const Array_map = /* @__PURE__ */ getPropertyName(ArrayPrototype, "map");
+// Element
+g = scope("Element");
+export const Element_querySelector = /* @__PURE__ */ g("querySelector");
+export const Element_querySelectorAll = /* @__PURE__ */ g("querySelectorAll");
+export const Element_shadowRoot = /* @__PURE__ */ g("shadowRoot");
+export const Element_matches = /* @__PURE__ */ g("matches");
+export const Element_classList = /* @__PURE__ */ g("classList");
+export const Element_getAttribute = /* @__PURE__ */ g("getAttribute");
 
-const StringPrototype = "String";
-export const String_indexOf = /* @__PURE__ */ getPropertyName(StringPrototype, "indexOf");
-export const String_slice = /* @__PURE__ */ getPropertyName(StringPrototype, "slice");
-export const String_split = /* @__PURE__ */ getPropertyName(StringPrototype, "split");
-export const String_trim = /* @__PURE__ */ getPropertyName(StringPrototype, "trim");
-export const String_replace = /* @__PURE__ */ getPropertyName(StringPrototype, "replace");
-export const String_match = /* @__PURE__ */ getPropertyName(StringPrototype, "match");
+// Document
+g = scope("Document");
+export const Document_querySelector = /* @__PURE__ */ g("querySelector");
+export const Document_querySelectorAll = /* @__PURE__ */ g("querySelectorAll");
 
-const NavigatorPrototype = "Navigator";
-export const Navigator_sendBeacon = /* @__PURE__ */ getPropertyName(NavigatorPrototype, "sendBeacon");
+// DocumentFragment
+g = scope("DocumentFragment");
+export const DocumentFragment_querySelector =
+  /* @__PURE__ */ g("querySelector");
+export const DocumentFragment_querySelectorAll =
+  /* @__PURE__ */ g("querySelectorAll");
 
-removeSafeFrame();
+// Array
+g = scope("Array");
+export const Array_filter = /* @__PURE__ */ g("filter");
+export const Array_push = /* @__PURE__ */ g("push");
+export const Array_pop = /* @__PURE__ */ g("pop");
+export const Array_shift = /* @__PURE__ */ g("shift");
+export const Array_unshift = /* @__PURE__ */ g("unshift");
+export const Array_splice = /* @__PURE__ */ g("splice");
+export const Array_slice = /* @__PURE__ */ g("slice");
+export const Array_concat = /* @__PURE__ */ g("concat");
+export const Array_indexOf = /* @__PURE__ */ g("indexOf");
+export const Array_map = /* @__PURE__ */ g("map");
+
+// String
+g = scope("String");
+export const String_indexOf = /* @__PURE__ */ g("indexOf");
+export const String_slice = /* @__PURE__ */ g("slice");
+export const String_split = /* @__PURE__ */ g("split");
+export const String_trim = /* @__PURE__ */ g("trim");
+export const String_replace = /* @__PURE__ */ g("replace");
+export const String_match = /* @__PURE__ */ g("match");
+
+// Navigator
+g = scope("Navigator");
+export const Navigator_sendBeacon = /* @__PURE__ */ g("sendBeacon");
+
+// removeSafeFrame();
