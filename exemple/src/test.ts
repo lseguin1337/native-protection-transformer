@@ -8,7 +8,8 @@ function bootstrap() {
   document.body.querySelector('.abc'.replace('a','b'))?.childNodes[0]?.nodeType;
   navigator.sendBeacon('https://example.com', JSON.stringify({ foo: 'bar' }));
 
-  /* @native-protection-do-not-transform */ console.log(document.body.childNodes[0]?.childNodes.length);
+  /* @ignore-native-protection */ console.log(document.body.childNodes[0]?.childNodes.length);
+  console.log(document.body.childNodes[0]?.childNodes.length);
 }
 
 bootstrap();

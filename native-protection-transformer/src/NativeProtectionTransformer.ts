@@ -10,7 +10,7 @@ export class NativeProtectionTransformer extends BaseTransformer {
 
   constructor(program: ts.Program, context: ts.TransformationContext) {
     super(program, context);
-    this.ignoredDecoration = '@native-protection-do-not-transform';
+    this.ignoredDecoration = '@ignore-native-protection';
   }
 
   transformFile(sourceFile: ts.SourceFile): ts.SourceFile {
