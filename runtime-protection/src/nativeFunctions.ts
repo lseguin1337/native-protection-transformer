@@ -7,7 +7,9 @@ import { getGlobal, getPropertyName, removeSafeFrame } from "./utils";
  * - To replace a property of a class, export it using the format `ClassName_propertyName` (e.g., `String_indexOf`).
  */
 
-const scope = (className: string) => (prop: string) =>
+type Global = Window & typeof globalThis;
+
+const scope = (className: keyof Global) => (prop: string) =>
   getPropertyName(className, prop);
 
 export const setTimeout = /* @__PURE__ */ getGlobal("setTimeout");
@@ -49,11 +51,14 @@ export const Document_querySelector = /* @__PURE__ */ g("querySelector");
 export const Document_querySelectorAll = /* @__PURE__ */ g("querySelectorAll");
 
 // DocumentFragment
-g = scope("DocumentFragment");
-export const DocumentFragment_querySelector =
-  /* @__PURE__ */ g("querySelector");
-export const DocumentFragment_querySelectorAll =
+g = scope("ShadowRoot");
+export const ShadowRoot_querySelector = /* @__PURE__ */ g("querySelector");
+export const ShadowRoot_querySelectorAll =
   /* @__PURE__ */ g("querySelectorAll");
+
+// HTMLImageElement
+g = scope("HTMLImageElement");
+export const HTMLImageElement_src = /* @__PURE__ */ g("src");
 
 // Array
 g = scope("Array");
@@ -81,4 +86,4 @@ export const String_match = /* @__PURE__ */ g("match");
 g = scope("Navigator");
 export const Navigator_sendBeacon = /* @__PURE__ */ g("sendBeacon");
 
-// removeSafeFrame();
+removeSafeFrame();

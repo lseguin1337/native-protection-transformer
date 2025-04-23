@@ -1,34 +1,8 @@
 import { Foo } from "./foo";
 
 console.log(Foo);
-
-function del(klassName: any, prop: string) {
-  const klass: any = window[klassName];
-  if (klass && klass.prototype) {
-    klass.prototype[prop] = () => {
-      throw new Error("Native function overridden");
-    };
-  }
-}
-
-function test(fn: Function) {
-  try {
-    fn();
-  } catch (e) {
-    // @ts-ignore
-    console.error(e.message, fn.toString());
-  }
-}
-
-del("Array", "map");
-del("String", "replace");
-
-const arr = [1, 2, 3, 4, 5];
-
-test(() => console.log(arr.map((x) => x * 2)));
-test(() => console.log(arr.length.toString().replace("5", "five")));
-
 export function stringTest() {
+  const arr = [1, 2, 3, 4, 5];
   const five = arr.length.toString().replace("5", "five");
   const str = "Hello, world!";
   return five + str.replace("world", "TypeScript");

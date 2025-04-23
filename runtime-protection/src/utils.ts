@@ -14,25 +14,21 @@ export function getGlobal<K extends keyof Global>(key: K): Global[K] {
   return safeWindow[key];
 }
 
-export function getPropertyName(targets: string | string[], name: string) {
+export function getPropertyName(klassName: keyof Global, name: string) {
   const safePropName = `__npt__${name}`; // we can use a Symbol here
-  if (typeof targets === "string") {
-    targets = [targets];
+
+  const safeTarget = safeWindow[klassName].prototype;
+  const originalTarget = window[klassName].prototype;
+  const safeDescriptor = Object.getOwnPropertyDescriptor(safeTarget, name);
+  if (!safeDescriptor) {
+    return name;
   }
-  for (let i = 0; i < targets.length; i++) {
-    const klassName = targets[i] as keyof Global;
-    const safeTarget = safeWindow[klassName].prototype;
-    const originalTarget = window[klassName].prototype;
-    const safeDescriptor = Object.getOwnPropertyDescriptor(safeTarget, name);
-    if (!safeDescriptor) {
-      return name;
-    }
-    Object.defineProperty(originalTarget, safePropName, safeDescriptor);
-  }
+  Object.defineProperty(originalTarget, safePropName, safeDescriptor);
+
   return safePropName;
 }
 
 export function removeSafeFrame() {
   // TODO: avoid removing it for the browser that doesn't support it
-  frame.remove();
+  frame.remove?.();
 }
