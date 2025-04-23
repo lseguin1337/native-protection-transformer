@@ -53,8 +53,13 @@ export abstract class BaseTransformer {
       // TODO: check if null or undefined and raise an error if it's an other object
       return type.types.some((t) => this.isSubtypeOf(t, targetTypeName));
     }
+    // Check if the type is an array
     if (targetTypeName === 'Array') {
       return this.typeChecker.isArrayType(type);
+    }
+    // Check if the type is 'any'
+    if (type === this.typeChecker.getAnyType()) {
+      return false;
     }
     const targetSymbol = this.typeChecker.resolveName(
       targetTypeName,
@@ -64,12 +69,6 @@ export abstract class BaseTransformer {
     );
     if (!targetSymbol) throw new Error(`Type ${targetTypeName} not found`);
     const targetType = this.typeChecker.getDeclaredTypeOfSymbol(targetSymbol);
-
-    const anyType = this.typeChecker.getAnyType();
-    if (type === anyType) {
-      return false;
-    }
-    
     return this.typeChecker.isTypeAssignableTo(type, targetType);
   }
 
