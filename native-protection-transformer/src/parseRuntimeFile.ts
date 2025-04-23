@@ -6,13 +6,17 @@ function extractExportedVariables(code: string) {
   const globals: string[] = [];
   const properties: Record<string, string[]> = {};
 
+  function pushProperty(key: string, value: string) {
+    if (!properties[key]) {
+      properties[key] = [];
+    }
+    properties[key].push(value);
+  }
+
   function visitIndentifier(identifierName: string) {
     if (/_/.test(identifierName)) {
       const [key, value] = identifierName.split('_');
-      if (!properties[key]) {
-        properties[key] = [];
-      }
-      properties[key].push(value);
+      pushProperty(key, value);
     } else {
       globals.push(identifierName);
     }

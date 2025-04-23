@@ -29,7 +29,13 @@ export class NativeProtectionTransformer extends BaseTransformer {
     const importClause = ts.factory.createImportClause(
       /* isTypeOnly */ false,
       /* name (default import) */ undefined,
-      ts.factory.createNamedImports(imports.map(name => ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(name))))
+      ts.factory.createNamedImports(imports.map(name => {
+        const exposedName = name;
+        if (name.startsWith('GobalThis_')) {
+          name = name.replace('GobalThis_', '');
+        }
+        return ts.factory.createImportSpecifier(false, exposedName === name ? undefined : ts.factory.createIdentifier(name), ts.factory.createIdentifier(exposedName));
+      }))
     );
     const moduleSpecifier = ts.factory.createStringLiteral(runtimeFile);
     return ts.factory.createImportDeclaration(
@@ -61,6 +67,12 @@ export class NativeProtectionTransformer extends BaseTransformer {
     if (ts.isPropertyAccessExpression(node)) {
       const propertyText = node.name.text;
       const type = this.getTypeAtLocation(node.expression);
+
+      if (GLOBALS.includes(propertyText) && this.isSubtypeOf(type, 'Window')) {
+        const importName = `GobalThis_${propertyText}`;
+        this.importsToAdd.add(importName);
+        return ts.factory.createIdentifier(importName);
+      }
       for (const TypeName in PROPERTIES) {
         const properties = PROPERTIES[TypeName];
         if (properties.includes(propertyText) && this.isSubtypeOf(type, TypeName)) {
