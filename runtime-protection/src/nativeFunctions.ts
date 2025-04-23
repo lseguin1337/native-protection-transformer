@@ -86,4 +86,10 @@ export const String_match = /* @__PURE__ */ g("match");
 g = scope("Navigator");
 export const Navigator_sendBeacon = /* @__PURE__ */ g("sendBeacon");
 
+// Additional Utilities
+const SafeArray = /* @__PURE__ */ getGlobal("Array");
+export function isInstanceOfArray(v: unknown) {
+  return (v instanceof Array || v instanceof SafeArray);
+}
+
 removeSafeFrame();

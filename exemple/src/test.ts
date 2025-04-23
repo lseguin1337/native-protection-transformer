@@ -80,3 +80,10 @@ export function querySelectorTest() {
   document.querySelector("div")!.querySelector("span");
   document.querySelector("div")!.shadowRoot!.querySelector("span");
 }
+
+export function instanceOfStuff() {
+  let foo: any = null;
+  if (foo instanceof Array) {
+    console.log("foo is an array");
+  }
+}

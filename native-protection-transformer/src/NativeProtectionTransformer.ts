@@ -80,5 +80,18 @@ export class NativeProtectionTransformer extends BaseTransformer {
         }
       }
     }
+
+    // transform variable instanceOf Array
+    if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.InstanceOfKeyword) {
+      if (ts.isIdentifier(node.right) && node.right.text === 'Array') {
+        const left = this.visit(node.left);
+        this.importsToAdd.add('isInstanceOfArray');
+        return ts.factory.createCallExpression(
+          ts.factory.createIdentifier('isInstanceOfArray'),
+          undefined,
+          [left]
+        );
+      }
+    }
   }
 }

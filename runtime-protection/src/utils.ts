@@ -24,11 +24,11 @@ export function getPropertyName(klassName: keyof Global, name: string) {
     return name;
   }
   Object.defineProperty(originalTarget, safePropName, safeDescriptor);
-
+  Object.defineProperty(safeTarget, safePropName, safeDescriptor);
   return safePropName;
 }
 
 export function removeSafeFrame() {
   // TODO: avoid removing it for the browser that doesn't support it
-  frame.remove?.();
+  // frame.remove?.();
 }
