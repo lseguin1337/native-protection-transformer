@@ -9,8 +9,8 @@ import { getGlobal, getPropertyName, removeSafeFrame } from "./utils";
 
 type Global = Window & typeof globalThis;
 
-const scope = (className: keyof Global) => (prop: string) =>
-  getPropertyName(className, prop);
+const scope = (...classNames: (keyof Global)[]) => (prop: string) => getPropertyName(classNames, prop);
+  
 
 export const setTimeout = /* @__PURE__ */ getGlobal("setTimeout");
 export const queueMicrotask = /* @__PURE__ */ getGlobal("queueMicrotask");
@@ -36,25 +36,17 @@ export const Node_nextSibling = /* @__PURE__ */ g("nextSibling");
 export const Node_previousSibling = /* @__PURE__ */ g("previousSibling");
 export const Node_localName = /* @__PURE__ */ g("localName");
 
+// NodeList
+g = scope("Element", "Document", "ShadowRoot");
+export const Node_querySelector = /* @__PURE__ */ g("querySelector");
+export const Node_querySelectorAll = /* @__PURE__ */ g("querySelectorAll");
+
 // Element
 g = scope("Element");
-export const Element_querySelector = /* @__PURE__ */ g("querySelector");
-export const Element_querySelectorAll = /* @__PURE__ */ g("querySelectorAll");
 export const Element_shadowRoot = /* @__PURE__ */ g("shadowRoot");
 export const Element_matches = /* @__PURE__ */ g("matches");
 export const Element_classList = /* @__PURE__ */ g("classList");
 export const Element_getAttribute = /* @__PURE__ */ g("getAttribute");
-
-// Document
-g = scope("Document");
-export const Document_querySelector = /* @__PURE__ */ g("querySelector");
-export const Document_querySelectorAll = /* @__PURE__ */ g("querySelectorAll");
-
-// DocumentFragment
-g = scope("ShadowRoot");
-export const ShadowRoot_querySelector = /* @__PURE__ */ g("querySelector");
-export const ShadowRoot_querySelectorAll =
-  /* @__PURE__ */ g("querySelectorAll");
 
 // HTMLImageElement
 g = scope("HTMLImageElement");
