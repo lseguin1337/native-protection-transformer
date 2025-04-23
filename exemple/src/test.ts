@@ -104,6 +104,11 @@ export function unionTest(root: Document | ShadowRoot, selector: string) {
   return root.querySelector(selector);
 }
 
-export function testAny(toto: any) {
-  return toto.querySelector("toto");
+export function anyTest(toto: any) {
+  toto.split("toto");
+  toto.childNodes;
+  toto.parentNode;
+  toto.firstChild;
+  toto.lastChild;
+  toto.querySelector("toto");
 }
