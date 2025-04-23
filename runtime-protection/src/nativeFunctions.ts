@@ -10,7 +10,6 @@ import { getGlobal, getPropertyName, removeSafeFrame } from "./utils";
 type Global = Window & typeof globalThis;
 
 const scope = (...classNames: (keyof Global)[]) => (prop: string) => getPropertyName(classNames, prop);
-  
 
 export const setTimeout = /* @__PURE__ */ getGlobal("setTimeout");
 export const queueMicrotask = /* @__PURE__ */ getGlobal("queueMicrotask");
