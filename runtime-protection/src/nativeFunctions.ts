@@ -16,13 +16,13 @@ export const queueMicrotask = /* @__PURE__ */ getGlobal("queueMicrotask");
 export const clearTimeout = /* @__PURE__ */ getGlobal("clearTimeout");
 export const setInterval = /* @__PURE__ */ getGlobal("setInterval");
 export const clearInterval = /* @__PURE__ */ getGlobal("clearInterval");
-
 export const Date = /* @__PURE__ */ getGlobal("Date");
 export const JSON = /* @__PURE__ */ getGlobal("JSON");
 export const URL = /* @__PURE__ */ getGlobal("URL");
 export const MutationObserver = /* @__PURE__ */ getGlobal("MutationObserver");
 export const RegExp = /* @__PURE__ */ getGlobal("RegExp");
 export const screen = /* @__PURE__ */ getGlobal("screen");
+export const document = /* @__PURE__ */ (() => window.document)();
 
 // Node
 let g = scope("Node");

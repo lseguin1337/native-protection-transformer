@@ -45,7 +45,8 @@ export function globalFunctions() {
   const interval = setInterval(console.log);
   clearTimeout(0);
   clearInterval(interval);
-  const mutationObserver = new MutationObserver(console.log);
+  const mutationObserver = new window.MutationObserver(console.log);
+  const mutationObserver2 = new MutationObserver(console.log);
   const fileReader = new FileReader();
   const symbol = Symbol("test");
   const regExp = new RegExp("test");
@@ -57,6 +58,7 @@ export function globalFunctions() {
 
   return [
     mutationObserver,
+    mutationObserver2,
     fileReader,
     symbol,
     regExp,
