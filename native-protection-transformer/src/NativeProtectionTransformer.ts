@@ -67,8 +67,7 @@ export class NativeProtectionTransformer extends BaseTransformer {
     if (ts.isPropertyAccessExpression(node)) {
       const propertyText = node.name.text;
       const type = this.getTypeAtLocation(node.expression);
-
-      if (GLOBALS.includes(propertyText) && this.isSubtypeOf(type, 'Window')) {
+      if (GLOBALS.includes(propertyText) && ts.isIdentifier(node.expression) && node.expression.text === 'window') {
         const importName = `GobalThis_${propertyText}`;
         this.importsToAdd.add(importName);
         return ts.factory.createIdentifier(importName);
