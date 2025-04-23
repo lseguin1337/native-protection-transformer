@@ -15,6 +15,7 @@ function test(fn: Function) {
   try {
     fn();
   } catch (e) {
+    // @ts-ignore
     console.error(e.message, fn.toString());
   }
 }
