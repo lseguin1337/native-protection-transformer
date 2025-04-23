@@ -97,3 +97,7 @@ export function nodeTypeTest() {
     console.log("node is a text node");
   }
 }
+
+export function unionTest(root: Document | ShadowRoot, selector: string) {
+  return root.querySelector(selector);
+}
