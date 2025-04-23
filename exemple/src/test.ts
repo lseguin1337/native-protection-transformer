@@ -101,3 +101,7 @@ export function nodeTypeTest() {
 export function unionTest(root: Document | ShadowRoot, selector: string) {
   return root.querySelector(selector);
 }
+
+export function testAny(toto: any) {
+  return toto.querySelector("toto");
+}

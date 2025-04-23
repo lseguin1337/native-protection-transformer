@@ -64,6 +64,12 @@ export abstract class BaseTransformer {
     );
     if (!targetSymbol) throw new Error(`Type ${targetTypeName} not found`);
     const targetType = this.typeChecker.getDeclaredTypeOfSymbol(targetSymbol);
+
+    const anyType = this.typeChecker.getAnyType();
+    if (type === anyType) {
+      return false;
+    }
+    
     return this.typeChecker.isTypeAssignableTo(type, targetType);
   }
 
