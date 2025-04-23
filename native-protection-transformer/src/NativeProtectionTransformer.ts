@@ -30,11 +30,8 @@ export class NativeProtectionTransformer extends BaseTransformer {
       /* isTypeOnly */ false,
       /* name (default import) */ undefined,
       ts.factory.createNamedImports(imports.map(name => {
-        const exposedName = name;
-        if (name.startsWith('GobalThis_')) {
-          name = name.replace('GobalThis_', '');
-        }
-        return ts.factory.createImportSpecifier(false, exposedName === name ? undefined : ts.factory.createIdentifier(name), ts.factory.createIdentifier(exposedName));
+        const importedName = name.replace(/^GobalThis_/, '');
+        return ts.factory.createImportSpecifier(false, importedName === name ? undefined : ts.factory.createIdentifier(importedName), ts.factory.createIdentifier(name));
       }))
     );
     const moduleSpecifier = ts.factory.createStringLiteral(runtimeFile);
