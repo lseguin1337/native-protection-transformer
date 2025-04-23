@@ -60,9 +60,10 @@ export class NativeProtectionTransformer extends BaseTransformer {
 
     if (ts.isPropertyAccessExpression(node)) {
       const propertyText = node.name.text;
+      const type = this.getTypeAtLocation(node.expression);
       for (const TypeName in PROPERTIES) {
         const properties = PROPERTIES[TypeName];
-        if (properties.includes(propertyText) && this.isSubtypeOf(this.getTypeAtLocation(node), TypeName)) {
+        if (properties.includes(propertyText) && this.isSubtypeOf(type, TypeName)) {
           const importName = `${TypeName}_${propertyText}`;
           this.importsToAdd.add(importName);
           const accessExpression = this.createAccessExpression(node, importName);
