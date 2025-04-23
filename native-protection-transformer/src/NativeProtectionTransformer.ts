@@ -5,6 +5,20 @@ import { parseRuntimeFile } from './parseRuntimeFile';
 const runtimeFile = require.resolve("@contentsquare/runtime-protection");
 const { globals: GLOBALS, properties: PROPERTIES } = parseRuntimeFile(runtimeFile);
 
+const NodeTypes = {
+  ELEMENT_NODE: 1,
+  ATTRIBUTE_NODE: 2,
+  TEXT_NODE: 3,
+  CDATA_SECTION_NODE: 4,
+  ENTITY_REFERENCE_NODE: 5,
+  ENTITY_NODE: 6,
+  PROCESSING_INSTRUCTION_NODE: 7,
+  COMMENT_NODE: 8,
+  DOCUMENT_NODE: 9,
+  DOCUMENT_TYPE_NODE: 10,
+  DOCUMENT_FRAGMENT_NODE: 11,
+};
+
 export class NativeProtectionTransformer extends BaseTransformer {
   private importsToAdd: Set<string> = new Set();
 
@@ -69,6 +83,11 @@ export class NativeProtectionTransformer extends BaseTransformer {
         this.importsToAdd.add(importName);
         return ts.factory.createIdentifier(importName);
       }
+
+      if (propertyText in NodeTypes && ts.isIdentifier(node.expression) && node.expression.text === 'Node') {
+        return ts.factory.createNumericLiteral(NodeTypes[propertyText as keyof typeof NodeTypes]);
+      }
+
       for (const TypeName in PROPERTIES) {
         const properties = PROPERTIES[TypeName];
         if (properties.includes(propertyText) && this.isSubtypeOf(type, TypeName)) {

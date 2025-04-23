@@ -19,22 +19,6 @@ module.exports = {
   optimization: {
     minimize: false, // Disable code minification
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'Node.ELEMENT_NODE': JSON.stringify(1),
-      'Node.ATTRIBUTE_NODE': JSON.stringify(2),
-      'Node.TEXT_NODE': JSON.stringify(3),
-      'Node.CDATA_SECTION_NODE': JSON.stringify(4),
-      'Node.ENTITY_REFERENCE_NODE': JSON.stringify(5),
-      'Node.ENTITY_NODE': JSON.stringify(6),
-      'Node.PROCESSING_INSTRUCTION_NODE': JSON.stringify(7),
-      'Node.COMMENT_NODE': JSON.stringify(8),
-      'Node.DOCUMENT_NODE': JSON.stringify(9),
-      'Node.DOCUMENT_TYPE_NODE': JSON.stringify(10),
-      'Node.DOCUMENT_FRAGMENT_NODE': JSON.stringify(11),
-      'Node.NOTATION_NODE': JSON.stringify(12),
-    }),
-  ],
   module: {
     rules: [
       {

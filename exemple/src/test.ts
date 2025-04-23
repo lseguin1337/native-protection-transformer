@@ -87,3 +87,13 @@ export function instanceOfStuff() {
     console.log("foo is an array");
   }
 }
+
+export function nodeTypeTest() {
+  const node = document.createElement("div");
+  if (node.nodeType === Node.ELEMENT_NODE) {
+    console.log("node is an element");
+  }
+  if (node.nodeType === Node.TEXT_NODE) {
+    console.log("node is a text node");
+  }
+}
