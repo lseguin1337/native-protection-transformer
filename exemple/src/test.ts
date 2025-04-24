@@ -116,22 +116,22 @@ export function anyTest(toto: any) {
   return family;
 }
 
-function testNever(value: "c"): never;
-function testNever(value: "b"): never;
-function testNever(value: "a"): { shadowRoot: any };
-function testNever(value: "a" | "b" | "c"): { shadowRoot: any } | never {
+function testNever(value: "c"): { third: true };
+function testNever(value: "b"): { second: true };
+function testNever(value: "a"): { shadowRoot: ShadowRoot };
+function testNever(value: "a" | "b" | "c"): { shadowRoot: ShadowRoot } | { second: true } | { third: true } {
   if (value === "a") {
-    return { shadowRoot: 3 };
+    return { shadowRoot: document.createElement("div").attachShadow({ mode: "open" }) };
   } else if (value == "b") {
-    throw new Error("b");
+    return { second: true };
   }
-  throw new Error("c");
+  return { third: true };
 }
 
 export function unionNeverTest() {
-  testNever("a").shadowRoot
+  testNever("a").shadowRoot.nodeType;
 }
 
 export function unionNeverTest2() {
-  testNever("b");
+  testNever("b").second;
 }
