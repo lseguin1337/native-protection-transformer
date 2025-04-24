@@ -22,7 +22,7 @@ export const URL = /* @__PURE__ */ getGlobal("URL");
 export const MutationObserver = /* @__PURE__ */ getGlobal("MutationObserver");
 export const RegExp = /* @__PURE__ */ getGlobal("RegExp");
 export const screen = /* @__PURE__ */ getGlobal("screen");
-// export const document = /* @__PURE__ */ (() => doc)();
+// export const document = (() => doc)();
 
 // Node
 let g = scope("Node");
