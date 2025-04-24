@@ -106,9 +106,12 @@ export function unionTest(root: Document | ShadowRoot, selector: string) {
 
 export function anyTest(toto: any) {
   toto.split("toto");
-  toto.childNodes;
-  toto.parentNode;
-  toto.firstChild;
-  toto.lastChild;
-  toto.querySelector("toto");
+  const family = [
+    toto.shadowRoot.childNodes,
+    toto.parentNode,
+    toto.firstChild,
+    toto.lastChild,
+    toto.querySelector("toto"),
+  ];
+  return family;
 }
