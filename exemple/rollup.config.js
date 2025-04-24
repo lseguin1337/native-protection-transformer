@@ -11,9 +11,9 @@ module.exports = defineConfig({
   input: ["src/test.ts"], // Point d'entrée principal
   output: [
     {
-      file: "out/rollup.js",
-      format: "esm", // Format ES Module
-      sourcemap: false,
+      file: 'dist/rollup.js',
+      format: 'esm', // Format ES Module
+      sourcemap: 'inline',
     },
   ],
   plugins: [

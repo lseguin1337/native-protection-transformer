@@ -1,9 +1,10 @@
 type Global = Window & typeof globalThis;
 
-const frame = document.createElement("iframe");
+export const doc = document;
+const frame = doc.createElement("iframe");
 const safeWindow = (() => {
   try {
-    (document.head || document.body).appendChild(frame);
+    (doc.head || doc.body).appendChild(frame);
     return frame.contentWindow as any as Global;
   } catch (e) {
     return window;

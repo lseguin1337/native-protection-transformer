@@ -115,3 +115,23 @@ export function anyTest(toto: any) {
   ];
   return family;
 }
+
+function testNever(value: "c"): never;
+function testNever(value: "b"): never;
+function testNever(value: "a"): { shadowRoot: any };
+function testNever(value: "a" | "b" | "c"): { shadowRoot: any } | never {
+  if (value === "a") {
+    return { shadowRoot: 3 };
+  } else if (value == "b") {
+    throw new Error("b");
+  }
+  throw new Error("c");
+}
+
+export function unionNeverTest() {
+  testNever("a").shadowRoot
+}
+
+export function unionNeverTest2() {
+  testNever("b");
+}
